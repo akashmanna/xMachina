@@ -1,0 +1,3 @@
+"disp.obj" 
+TO "disp" 
+PRINT(".\Listings\disp.m51") RAMSIZE(256) 
