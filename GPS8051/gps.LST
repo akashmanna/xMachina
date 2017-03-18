@@ -1,4 +1,4 @@
-C51 COMPILER V9.54   GPS                                                                   03/18/2017 22:22:11 PAGE 1   
+C51 COMPILER V9.54   GPS                                                                   03/19/2017 02:26:28 PAGE 1   
 
 
 C51 COMPILER V9.54, COMPILATION OF MODULE GPS
@@ -62,7 +62,7 @@ line level    source
   52   2          i++;
   53   2          delay(10);
   54   2        }
-C51 COMPILER V9.54   GPS                                                                   03/18/2017 22:22:11 PAGE 2   
+C51 COMPILER V9.54   GPS                                                                   03/19/2017 02:26:28 PAGE 2   
 
   55   1        return;
   56   1      }
@@ -126,7 +126,7 @@ line level    source
  114   1        lcd_data(info[c2+2]); 
  115   1        lcd_data(0);          // TO display degree symbol 
  116   1        
-C51 COMPILER V9.54   GPS                                                                   03/18/2017 22:22:11 PAGE 3   
+C51 COMPILER V9.54   GPS                                                                   03/19/2017 02:26:28 PAGE 3   
 
  117   1        for(i=3;i<=9;i++) {
  118   2          lcd_data(info[c2+i]);
@@ -155,20 +155,25 @@ line level    source
  141          void main() {
  142   1        serial();
  143   1        lcd_cmd(0x38);         //2 LINE, 5X7 MATRIX
- 144   1        lcd_cmd(0x0c);         //DISPLAY ON, CURSOR BLINKING
- 145   1        lcd_string("GPS SYSTEM");  //Showing Latitude 
- 146   1        IE=0x90;
- 147   1        while(1)  {
- 148   2          if(check==69)
- 149   2          compare();
- 150   2        }
- 151   1      }
- 152           
- 153           
+ 144   1        lcd_cmd(0x80);
+ 145   1        lcd_cmd(0x0F);         //DISPLAY ON, CURSOR BLINKING
+ 146   1        lcd_string("GPS SYSTEM");  //Showing Latitude 
+ 147   1        /*
+ 148   1        lcd_cmd(0xC0);
+ 149   1        lcd_string("Text Works");
+ 150   1        */
+ 151   1        IE=0x90;
+ 152   1        while(1)  {
+ 153   2          if(check==69)
+ 154   2          compare();
+ 155   2        }
+ 156   1      }
+ 157           
+ 158           
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    521    ----
+   CODE SIZE        =    526    ----
    CONSTANT SIZE    =     20    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----

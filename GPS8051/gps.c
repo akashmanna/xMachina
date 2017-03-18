@@ -141,8 +141,13 @@ void lcd_longitude()	{
 void main()	{
 	serial();
 	lcd_cmd(0x38);         //2 LINE, 5X7 MATRIX
-	lcd_cmd(0x0c);         //DISPLAY ON, CURSOR BLINKING
+	lcd_cmd(0x80);
+	lcd_cmd(0x0F);         //DISPLAY ON, CURSOR BLINKING
 	lcd_string("GPS SYSTEM");  //Showing Latitude	
+	/*
+	lcd_cmd(0xC0);
+	lcd_string("Text Works");
+	*/
 	IE=0x90;
 	while(1)	{
 		if(check==69)

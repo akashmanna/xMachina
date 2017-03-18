@@ -1,4 +1,4 @@
-BL51 BANKED LINKER/LOCATER V6.22                                                        03/18/2017  22:22:11  PAGE 1
+BL51 BANKED LINKER/LOCATER V6.22                                                        03/19/2017  02:26:28  PAGE 1
 
 
 BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
@@ -38,16 +38,16 @@ LINK MAP OF MODULE:  ..\plis (GPS)
             CODE    0942H     0049H     UNIT         ?PR?RECEIVE_DATA?GPS
             CODE    098BH     0032H     UNIT         ?PR?_LCD_STRING?GPS
             CODE    09BDH     002DH     UNIT         ?C?LIB_CODE
-            CODE    09EAH     0028H     UNIT         ?PR?_DELAY?GPS
-            CODE    0A12H     0027H     UNIT         ?PR?LCD_SHAPE?GPS
-            CODE    0A39H     0026H     UNIT         ?PR?FIND_COMMA?GPS
-            CODE    0A5FH     0026H     UNIT         ?PR?MAIN?GPS
-            CODE    0A85H     0015H     UNIT         ?PR?COMPARE?GPS
-            CODE    0A9AH     0014H     UNIT         ?CO?GPS
-            CODE    0AAEH     0012H     UNIT         ?PR?_LCD_DATA?GPS
-            CODE    0AC0H     000DH     UNIT         ?C_INITSEG
-            CODE    0ACDH     000CH     UNIT         ?PR?SERIAL?GPS
-            CODE    0AD9H     000AH     UNIT         ?PR?_LCD_CMD?GPS
+            CODE    09EAH     002BH     UNIT         ?PR?MAIN?GPS
+            CODE    0A15H     0028H     UNIT         ?PR?_DELAY?GPS
+            CODE    0A3DH     0027H     UNIT         ?PR?LCD_SHAPE?GPS
+            CODE    0A64H     0026H     UNIT         ?PR?FIND_COMMA?GPS
+            CODE    0A8AH     0015H     UNIT         ?PR?COMPARE?GPS
+            CODE    0A9FH     0014H     UNIT         ?CO?GPS
+            CODE    0AB3H     0012H     UNIT         ?PR?_LCD_DATA?GPS
+            CODE    0AC5H     000DH     UNIT         ?C_INITSEG
+            CODE    0AD2H     000CH     UNIT         ?PR?SERIAL?GPS
+            CODE    0ADEH     000AH     UNIT         ?PR?_LCD_CMD?GPS
 
 
 
@@ -59,7 +59,7 @@ SEGMENT                          DATA_GROUP
 ----------------------------------------------
 ?C_C51STARTUP                  -----    -----
   +--> ?PR?MAIN?GPS
-BL51 BANKED LINKER/LOCATER V6.22                                                      03/18/2017  22:22:11  PAGE 2
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/19/2017  02:26:28  PAGE 2
 
 
   +--> ?C_INITSEG
@@ -110,24 +110,24 @@ SYMBOL TABLE OF MODULE:  ..\plis (GPS)
   D:0008H         PUBLIC        check
   D:0090H         PUBLIC        P1
   D:00A0H         PUBLIC        P2
-  C:0ACDH         PUBLIC        serial
+  C:0AD2H         PUBLIC        serial
   D:00A8H         PUBLIC        IE
-  C:09F2H         PUBLIC        _delay
-  C:0A39H         PUBLIC        find_comma
+  C:0A1DH         PUBLIC        _delay
+  C:0A64H         PUBLIC        find_comma
   B:0098H.0       PUBLIC        RI
-  C:0A5FH         PUBLIC        main
-  C:0A12H         PUBLIC        lcd_shape
+  C:09EAH         PUBLIC        main
+  C:0A3DH         PUBLIC        lcd_shape
   D:000AH         PUBLIC        info
   C:098BH         PUBLIC        _lcd_string
-BL51 BANKED LINKER/LOCATER V6.22                                                      03/18/2017  22:22:11  PAGE 3
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/19/2017  02:26:28  PAGE 3
 
 
-  C:0AB6H         PUBLIC        _lcd_data
+  C:0ABBH         PUBLIC        _lcd_data
   D:0099H         PUBLIC        SBUF
   D:0098H         PUBLIC        SCON
   D:0089H         PUBLIC        TMOD
   D:0050H         PUBLIC        test
-  C:0AD9H         PUBLIC        _lcd_cmd
+  C:0ADEH         PUBLIC        _lcd_cmd
   D:008DH         PUBLIC        TH1
   B:0088H.6       PUBLIC        TR1
   D:0056H         PUBLIC        a
@@ -137,7 +137,7 @@ SYMBOL TABLE OF MODULE:  ..\plis (GPS)
   C:08E7H         PUBLIC        lcd_longitude
   D:0057H         PUBLIC        i
   B:0090H.1       PUBLIC        rw
-  C:0A85H         PUBLIC        compare
+  C:0A8AH         PUBLIC        compare
   D:0059H         PUBLIC        comma_position
   C:088CH         PUBLIC        lcd_latitude
   -------         PROC          L?0046
@@ -148,38 +148,38 @@ SYMBOL TABLE OF MODULE:  ..\plis (GPS)
   D:0004H         SYMBOL        i
   D:0002H         SYMBOL        j
   -------         ENDDO         
-  C:09F2H         LINE#         19
-  C:09F2H         LINE#         21
-  C:09FCH         LINE#         22
-  C:0A11H         LINE#         23
+  C:0A1DH         LINE#         19
+  C:0A1DH         LINE#         21
+  C:0A27H         LINE#         22
+  C:0A3CH         LINE#         23
   -------         ENDPROC       _DELAY
   -------         PROC          _LCD_CMD
   D:0007H         SYMBOL        item
-  C:0AD9H         LINE#         26
-  C:0AD9H         LINE#         27
-  C:0ADBH         LINE#         28
-  C:0ADDH         LINE#         29
-  C:0ADDH         LINE#         30
-  C:0ADDH         LINE#         31
-  C:0AE0H         LINE#         32
-  C:0AE2H         LINE#         34
+  C:0ADEH         LINE#         26
+  C:0ADEH         LINE#         27
+  C:0AE0H         LINE#         28
+  C:0AE2H         LINE#         29
+  C:0AE2H         LINE#         30
+  C:0AE2H         LINE#         31
+  C:0AE5H         LINE#         32
+  C:0AE7H         LINE#         34
   -------         ENDPROC       _LCD_CMD
-  C:0AB0H         SYMBOL        L?0045
+  C:0AB5H         SYMBOL        L?0045
   -------         PROC          L?0044
   -------         ENDPROC       L?0044
-  C:0AB0H         SYMBOL        L?0045
+  C:0AB5H         SYMBOL        L?0045
   -------         PROC          _LCD_DATA
   D:0007H         SYMBOL        item
-  C:0AB6H         LINE#         37
-  C:0AB6H         LINE#         38
-  C:0AB8H         LINE#         39
-  C:0ABAH         LINE#         40
-  C:0ABAH         LINE#         41
-  C:0ABAH         LINE#         42
-  C:0ABDH         LINE#         43
-  C:0ABFH         LINE#         45
+  C:0ABBH         LINE#         37
+  C:0ABBH         LINE#         38
+  C:0ABDH         LINE#         39
+  C:0ABFH         LINE#         40
+  C:0ABFH         LINE#         41
+  C:0ABFH         LINE#         42
+  C:0AC2H         LINE#         43
+  C:0AC4H         LINE#         45
   -------         ENDPROC       _LCD_DATA
-BL51 BANKED LINKER/LOCATER V6.22                                                      03/18/2017  22:22:11  PAGE 4
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/19/2017  02:26:28  PAGE 4
 
 
   -------         PROC          _LCD_STRING
@@ -197,36 +197,36 @@ SYMBOL TABLE OF MODULE:  ..\plis (GPS)
   C:09BCH         LINE#         56
   -------         ENDPROC       _LCD_STRING
   -------         PROC          SERIAL
-  C:0ACDH         LINE#         59
-  C:0ACDH         LINE#         60
-  C:0AD0H         LINE#         61
-  C:0AD3H         LINE#         62
-  C:0AD6H         LINE#         63
-  C:0AD8H         LINE#         64
+  C:0AD2H         LINE#         59
+  C:0AD2H         LINE#         60
+  C:0AD5H         LINE#         61
+  C:0AD8H         LINE#         62
+  C:0ADBH         LINE#         63
+  C:0ADDH         LINE#         64
   -------         ENDPROC       SERIAL
   -------         PROC          FIND_COMMA
   -------         DO            
   D:0004H         SYMBOL        i
   D:0006H         SYMBOL        count
   -------         ENDDO         
-  C:0A39H         LINE#         66
-  C:0A39H         LINE#         67
-  C:0A3CH         LINE#         68
-  C:0A3EH         LINE#         69
-  C:0A46H         LINE#         70
-  C:0A53H         LINE#         71
-  C:0A53H         LINE#         72
-  C:0A5EH         LINE#         73
+  C:0A64H         LINE#         66
+  C:0A64H         LINE#         67
+  C:0A67H         LINE#         68
+  C:0A69H         LINE#         69
+  C:0A71H         LINE#         70
+  C:0A7EH         LINE#         71
+  C:0A7EH         LINE#         72
+  C:0A89H         LINE#         73
   -------         ENDPROC       FIND_COMMA
   -------         PROC          COMPARE
-  C:0A85H         LINE#         75
-  C:0A85H         LINE#         76
-  C:0A88H         LINE#         77
-  C:0A8BH         LINE#         78
-  C:0A8EH         LINE#         79
-  C:0A91H         LINE#         80
-  C:0A96H         LINE#         81
-  C:0A99H         LINE#         82
+  C:0A8AH         LINE#         75
+  C:0A8AH         LINE#         76
+  C:0A8DH         LINE#         77
+  C:0A90H         LINE#         78
+  C:0A93H         LINE#         79
+  C:0A96H         LINE#         80
+  C:0A9BH         LINE#         81
+  C:0A9EH         LINE#         82
   -------         ENDPROC       COMPARE
   -------         PROC          RECEIVE_DATA
   C:0942H         LINE#         85
@@ -239,19 +239,19 @@ SYMBOL TABLE OF MODULE:  ..\plis (GPS)
   C:0980H         LINE#         93
   -------         ENDPROC       RECEIVE_DATA
   -------         PROC          LCD_SHAPE
-BL51 BANKED LINKER/LOCATER V6.22                                                      03/18/2017  22:22:11  PAGE 5
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/19/2017  02:26:28  PAGE 5
 
 
-  C:0A12H         LINE#         95
-  C:0A12H         LINE#         96
-  C:0A17H         LINE#         97
-  C:0A1CH         LINE#         98
-  C:0A21H         LINE#         99
-  C:0A26H         LINE#         100
-  C:0A2BH         LINE#         101
-  C:0A2CH         LINE#         102
-  C:0A2FH         LINE#         103
-  C:0A34H         LINE#         104
+  C:0A3DH         LINE#         95
+  C:0A3DH         LINE#         96
+  C:0A42H         LINE#         97
+  C:0A47H         LINE#         98
+  C:0A4CH         LINE#         99
+  C:0A51H         LINE#         100
+  C:0A56H         LINE#         101
+  C:0A57H         LINE#         102
+  C:0A5AH         LINE#         103
+  C:0A5FH         LINE#         104
   -------         ENDPROC       LCD_SHAPE
   -------         PROC          LCD_LATITUDE
   -------         DO            
@@ -288,20 +288,21 @@ SYMBOL TABLE OF MODULE:  ..\plis (GPS)
   C:0938H         LINE#         137
   -------         ENDPROC       LCD_LONGITUDE
   -------         PROC          MAIN
-  C:0A5FH         LINE#         141
-  C:0A5FH         LINE#         142
-  C:0A62H         LINE#         143
-  C:0A67H         LINE#         144
-  C:0A6CH         LINE#         145
-  C:0A75H         LINE#         146
-  C:0A78H         LINE#         147
-  C:0A78H         LINE#         148
-  C:0A80H         LINE#         149
-  C:0A83H         LINE#         150
+  C:09EAH         LINE#         141
+  C:09EAH         LINE#         142
+  C:09EDH         LINE#         143
+  C:09F2H         LINE#         144
+  C:09F7H         LINE#         145
+  C:09FCH         LINE#         146
+  C:0A05H         LINE#         151
+  C:0A08H         LINE#         152
+  C:0A08H         LINE#         153
+  C:0A10H         LINE#         154
+  C:0A13H         LINE#         155
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/19/2017  02:26:28  PAGE 6
+
+
   -------         ENDPROC       MAIN
-BL51 BANKED LINKER/LOCATER V6.22                                                      03/18/2017  22:22:11  PAGE 6
-
-
   -------         ENDMOD        GPS
 
   -------         MODULE        ?C?CLDOPTR
@@ -312,8 +313,8 @@ SYMBOL TABLE OF MODULE:  ..\plis (GPS)
     SEGMENT: ?PR?LCD_SHAPE?GPS
 
 ******************************************************************************
-* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 022CH BYTE (27%) *
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0231H BYTE (27%) *
 ******************************************************************************
 
-Program Size: data=112.0 xdata=0 code=745
+Program Size: data=112.0 xdata=0 code=750
 LINK/LOCATE RUN COMPLETE.  1 WARNING(S),  0 ERROR(S)
