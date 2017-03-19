@@ -1,0 +1,5 @@
+"main.obj",
+"c_func.obj",
+"a_func.obj" 
+TO "test" 
+RAMSIZE(256) 

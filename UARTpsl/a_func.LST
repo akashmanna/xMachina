@@ -1,0 +1,138 @@
+A51 MACRO ASSEMBLER  A_FUNC                                                               03/19/2017 12:16:37 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.02c
+OBJECT MODULE PLACED IN a_func.OBJ
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE a_func.a51 SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     ?SU?PUTC SEGMENT CODE
+                       2     ?SU?GETC SEGMENT CODE
+                       3      
+                       4     PUBLIC _putc
+                       5     PUBLIC getc
+                       6      
+  00B1                 7     txd_pin EQU     P3.1            ;Transmit on this pin
+  00B0                 8     rxd_pin EQU     P3.0            ;Receive on this pin
+                       9      
+                      10     ;Formula to calculate the bit time delay constant
+                      11     ;This constant is calculated as: (((crystal/baud)/12) - 5) / 2
+                      12     ;crystal is the frequency of crystal in Hz
+                      13     ;baud is required baudrate
+                      14     ;Please try to keep baudrate below 9600
+                      15     ;to get best results :)
+                      16      
+  002D                17     BITTIM  EQU     45;             (((11059200/9600)/12) - 5) / 2
+                      18      
+                      19     ;--------------------------------------------
+                      20     ;To send data serially
+                      21     ;For C programs
+                      22     ;Protype definition:
+                      23     ;               void putc(unsigned char);
+                      24     ;Usage:
+                      25     ;               putc(data);
+                      26     ;Return:
+                      27     ;               This function returns nothing
+                      28     ;
+                      29     ;For Assembly Programs:
+                      30     ;
+                      31     ;Usage:
+                      32     ;       data to be send has to be moved to R7
+                      33     ;       for example:
+                      34     ;               mov R7,#'a'
+                      35     ;               lcall _putc
+                      36     ;--------------------------------------------
+----                  37     RSEG ?SU?PUTC
+0000                  38     _putc:
+0000 C0E0             39             push ACC
+0002 C0D0             40             Push PSW
+0004 EF               41             mov a,r7
+0005 C2B1             42             CLR txd_pin                     ;Drop line for start bit
+0007 782D             43             MOV R0,#BITTIM          ;Wait full bit-time
+0009 D8FE             44             DJNZ R0,$                       ;For START bit
+000B 7908             45             MOV R1,#8                       ;Send 8 bits
+000D                  46     putc1:
+000D 13               47             RRC A                           ;Move next bit into carry
+000E 92B1             48             MOV txd_pin,C           ;Write next bit
+0010 782D             49             MOV R0,#BITTIM          ;Wait full bit-time
+0012 D8FE             50             DJNZ R0,$                       ;For DATA bit
+0014 D9F7             51             DJNZ R1,putc1           ;write 8 bits
+0016 D2B1             52             SETB txd_pin            ;Set line high
+0018 13               53             RRC A                           ;Restore ACC contents
+0019 782D             54             MOV R0,#BITTIM          ;Wait full bit-time
+001B D8FE             55             DJNZ R0,$                       ;For STOP bit
+001D D0D0             56             POP PSW
+001F D0E0             57             pop ACC
+0021 22               58             RET
+A51 MACRO ASSEMBLER  A_FUNC                                                               03/19/2017 12:16:37 PAGE     2
+
+                      59      
+                      60     ;--------------------------------------------
+                      61     ;To receive data Serially
+                      62     ;If you want to use this routine in your
+                      63     ;C program then define function prototype
+                      64     ; as:
+                      65     ;       unsigned char getc(void);
+                      66     ;
+                      67     ;       Usage:
+                      68     ;               data = getc();
+                      69     ;       Return value:
+                      70     ;               Returns data received
+                      71     ;
+                      72     ;
+                      73     ;If you are using it in assembly program
+                      74     ;       Usage:
+                      75     ;               lcall getc
+                      76     ;       Return:
+                      77     ;               data received is stored in R7
+                      78     ;--------------------------------------------
+                      79      
+----                  80     RSEG ?SU?GETC
+0000                  81     getc:   
+0000 C0E0             82             Push ACC
+0002 C0D0             83             Push PSW
+0004 20B0FD           84             JB rxd_pin,$            ;Wait for start bit
+0007 7816             85             MOV R0,#BITTIM/2        ;Wait 1/2 bit-time
+0009 D8FE             86             DJNZ R0,$                       ;To sample in middle
+000B 20B0F2           87             JB rxd_pin,getc         ;Insure valid
+000E 7908             88             MOV R1,#8                       ;Read 8 bits
+0010                  89     getc1:
+0010 782D             90             MOV R0,#BITTIM          ;Wait full bit-time
+0012 D8FE             91             DJNZ R0,$                       ;For DATA bit
+0014 A2B0             92             MOV C,rxd_pin           ;Read bit
+0016 13               93             RRC A                           ;Shift it into ACC
+0017 D9F7             94             DJNZ R1,getc1           ;read 8 bits
+0019 FF               95             mov r7,a
+001A D0D0             96             POP PSW
+001C D0E0             97             pop ACC
+001E 22               98             RET                                     ;go home
+                      99             
+                     100     END     
+                                     
+A51 MACRO ASSEMBLER  A_FUNC                                                               03/19/2017 12:16:37 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+?SU?GETC . . . . .  C SEG    001FH       REL=UNIT
+?SU?PUTC . . . . .  C SEG    0022H       REL=UNIT
+ACC. . . . . . . .  D ADDR   00E0H   A   
+BITTIM . . . . . .  N NUMB   002DH   A   
+GETC . . . . . . .  C ADDR   0000H   R   SEG=?SU?GETC
+GETC1. . . . . . .  C ADDR   0010H   R   SEG=?SU?GETC
+P3 . . . . . . . .  D ADDR   00B0H   A   
+PSW. . . . . . . .  D ADDR   00D0H   A   
+PUTC1. . . . . . .  C ADDR   000DH   R   SEG=?SU?PUTC
+RXD_PIN. . . . . .  B ADDR   00B0H.0 A   
+TXD_PIN. . . . . .  B ADDR   00B0H.1 A   
+_PUTC. . . . . . .  C ADDR   0000H   R   SEG=?SU?PUTC
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

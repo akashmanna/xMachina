@@ -1,0 +1,139 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        03/19/2017  12:16:37  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL_V5\C51\BIN\BL51.EXE main.obj, c_func.obj, a_func.obj TO test RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  main.obj (MAIN)
+  c_func.obj (C_FUNC)
+  a_func.obj (A_FUNC)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C_STARTUP)
+
+
+LINK MAP OF MODULE:  test (MAIN)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            IDATA   0008H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     07FDH                  *** GAP ***
+            CODE    0800H     0022H     UNIT         ?SU?PUTC
+            CODE    0822H     001FH     UNIT         ?SU?GETC
+            CODE    0841H     000CH     UNIT         ?C_C51STARTUP
+            CODE    084DH     0005H     UNIT         ?PR?MAIN?MAIN
+            CODE    0852H     0001H     UNIT         ?PR?C_FUNC?C_FUNC
+
+
+
+OVERLAY MAP OF MODULE:   test (MAIN)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?MAIN
+
+
+
+SYMBOL TABLE OF MODULE:  test (MAIN)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        MAIN
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  C:084DH         PUBLIC        main
+  -------         PROC          MAIN
+  C:084DH         LINE#         6
+  C:084DH         LINE#         7
+  C:084DH         LINE#         8
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/19/2017  12:16:37  PAGE 2
+
+
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        MAIN
+
+  -------         MODULE        C_FUNC
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  C:0852H         PUBLIC        c_func
+  -------         PROC          C_FUNC
+  C:0852H         LINE#         1
+  C:0852H         LINE#         2
+  C:0852H         LINE#         3
+  -------         ENDPROC       C_FUNC
+  -------         ENDMOD        C_FUNC
+
+  -------         MODULE        A_FUNC
+  C:0800H         SEGMENT       ?SU?PUTC
+  C:0822H         SEGMENT       ?SU?GETC
+  C:0822H         PUBLIC        GETC
+  C:0800H         PUBLIC        _PUTC
+  D:00E0H         SYMBOL        ACC
+  N:002DH         SYMBOL        BITTIM
+  C:0832H         SYMBOL        GETC1
+  D:00B0H         SYMBOL        P3
+  D:00D0H         SYMBOL        PSW
+  C:080DH         SYMBOL        PUTC1
+  B:00B0H.0       SYMBOL        RXD_PIN
+  B:00B0H.1       SYMBOL        TXD_PIN
+  C:0800H         LINE#         39
+  C:0802H         LINE#         40
+  C:0804H         LINE#         41
+  C:0805H         LINE#         42
+  C:0807H         LINE#         43
+  C:0809H         LINE#         44
+  C:080BH         LINE#         45
+  C:080DH         LINE#         47
+  C:080EH         LINE#         48
+  C:0810H         LINE#         49
+  C:0812H         LINE#         50
+  C:0814H         LINE#         51
+  C:0816H         LINE#         52
+  C:0818H         LINE#         53
+  C:0819H         LINE#         54
+  C:081BH         LINE#         55
+  C:081DH         LINE#         56
+  C:081FH         LINE#         57
+  C:0821H         LINE#         58
+  C:0822H         LINE#         82
+  C:0824H         LINE#         83
+  C:0826H         LINE#         84
+  C:0829H         LINE#         85
+  C:082BH         LINE#         86
+  C:082DH         LINE#         87
+  C:0830H         LINE#         88
+  C:0832H         LINE#         90
+  C:0834H         LINE#         91
+  C:0836H         LINE#         92
+  C:0838H         LINE#         93
+  C:0839H         LINE#         94
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/19/2017  12:16:37  PAGE 3
+
+
+  C:083BH         LINE#         95
+  C:083CH         LINE#         96
+  C:083EH         LINE#         97
+  C:0840H         LINE#         98
+  -------         ENDMOD        A_FUNC
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?C_FUNC?C_FUNC
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0047H BYTE ( 3%) *
+******************************************************************************
+
+Program Size: data=9.0 xdata=0 code=86
+LINK/LOCATE RUN COMPLETE.  1 WARNING(S),  0 ERROR(S)

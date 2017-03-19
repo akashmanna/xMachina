@@ -1,0 +1,52 @@
+A51 MACRO ASSEMBLER  A_FUNC                                                               07/31/2000 13:03:01 PAGE     1
+
+
+MACRO ASSEMBLER A51 V6.01
+OBJECT MODULE PLACED IN a_func.OBJ
+ASSEMBLER INVOKED BY: D:\KEIL\C51\BIN\A51.EXE a_func.src PR(.\a_func.ls1) EP DEBUG
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     ; .\a_func.SRC generated from: .\a_func.c
+                       2     
+                       3     
+                       4     NAME    A_FUNC
+                       5     
+                       6     ?PR?a_func?A_FUNC    SEGMENT CODE
+                       7             EXTRN   CODE (c_func)
+                       8             PUBLIC  a_func
+                       9     ; extern void c_func (void);
+                      10     ; 
+                      11     ; void a_func (void)
+                      12     
+----                  13             RSEG  ?PR?a_func?A_FUNC
+0000                  14     a_func:
+                      15             USING   0
+                      16                             ; SOURCE LINE # 3
+                      17     ; {
+                      18                             ; SOURCE LINE # 4
+                      19     ; c_func ();
+                      20                             ; SOURCE LINE # 5
+0000 020000   F       21             LJMP    c_func
+                      22     ; }
+                      23                             ; SOURCE LINE # 6
+                      24     ; END OF a_func
+                      25     
+                      26             END
+A51 MACRO ASSEMBLER  A_FUNC                                                               07/31/2000 13:03:01 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+?PR?A_FUNC?A_FUNC.  C SEG    0003H       REL=UNIT
+A_FUNC . . . . . .  C ADDR   0000H   R   SEG=?PR?A_FUNC?A_FUNC
+C_FUNC . . . . . .  C ADDR   -----       EXT
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
