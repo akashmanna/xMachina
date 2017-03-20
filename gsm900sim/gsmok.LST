@@ -1,0 +1,238 @@
+C51 COMPILER V9.54   GSMOK                                                                 03/15/2017 19:08:53 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE GSMOK
+OBJECT MODULE PLACED IN gsmok.OBJ
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE gsmok.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          #include<reg51.h>
+   2          #include<string.h>
+   3          sbit rs=P2^0;
+   4          sbit en=P2^1;
+   5          sbit led=P0^3;
+   6          sbit blub=P0^0;
+   7          sbit motor=P0^1;
+   8          sbit fan=P0^2;
+   9          
+  10          void lcd_cmd(unsigned char x1);
+  11          void lcd_data(unsigned char x2);
+  12          void delay(unsigned int time);
+  13          void lcd_string(unsigned char *str);
+  14          void send_byte(unsigned char ch);
+  15          unsigned char recv_byte();
+  16          void enter();
+  17          void signal();
+  18          void string_hypr(unsigned char *str);
+  19          
+  20          unsigned char message[40],buff[4]; 
+  21          
+  22          char i,j,l;
+  23          int as=0;
+  24          void main()
+  25          {
+  26   1       P0=0x00;
+  27   1       led=0;
+  28   1       TMOD=0x20;
+  29   1       SCON=0x50;
+  30   1       TH1=0xfd;
+  31   1       TR1=1;
+  32   1       delay(50);
+  33   1       lcd_cmd(0x38);
+  34   1       lcd_cmd(0x0c);
+  35   1       lcd_cmd(0x01);
+  36   1       lcd_cmd(0x80);
+  37   1        
+  38   1       lcd_string("** Welcome **");
+  39   1        delay(200);
+  40   1      lcd_cmd(0xC0);lcd_cmd(0x01);
+  41   1        lcd_string("Initializing..");
+  42   1        delay(200);
+  43   1        
+  44   1       string_hypr("AT");
+  45   1       enter();
+  46   1       delay(200);
+  47   1        
+  48   1       string_hypr("ATE0");
+  49   1       enter();
+  50   1       delay(200);
+  51   1       
+  52   1       string_hypr("AT+CMGF=1");
+  53   1       enter();
+  54   1       delay(200);
+  55   1       
+C51 COMPILER V9.54   GSMOK                                                                 03/15/2017 19:08:53 PAGE 2   
+
+  56   1       while(1)
+  57   1       {
+  58   2        string_hypr("AT+CMGD=1");
+  59   2        enter();
+  60   2         lcd_cmd(0x01);lcd_cmd(0xc0);
+  61   2        lcd_string("No New MSG");
+  62   2        delay(50);
+  63   2        i=0;j=0;l=0;as=0;
+  64   2       do
+  65   2        {
+  66   3         i=recv_byte();
+  67   3        }while(i!='+');
+  68   2        delay(300);
+  69   2        lcd_string("MSG RECIEVED");
+  70   2        delay(200);
+  71   2        i=0;j=0;l=0;as=0;
+  72   2        signal();
+  73   2        string_hypr("AT+CMGR=1");
+  74   2        enter();
+  75   2        delay(2);
+  76   2        do
+  77   2        {
+  78   3         i=recv_byte();
+  79   3        }while(i!='+');
+  80   2        
+  81   2        do
+  82   2        {
+  83   3         j=recv_byte();
+  84   3         message[l++]=j;
+  85   3        }while(j!='K');
+  86   2        message[--l]='\0';
+  87   2        
+  88   2        lcd_cmd(0x01);
+  89   2        lcd_string("MSG Reading..");
+  90   2        for(i=75;i<=77;i++)
+  91   2        {
+  92   3          buff[as]=message[i];
+  93   3          as++;
+  94   3        }
+  95   2        
+  96   2        if(strcmp(buff,"bON")==0) { blub=1; lcd_cmd(0x01); lcd_cmd(0xc3); lcd_string("Blub ON");}
+  97   2        if(strcmp(buff,"bOF")==0) { blub=0; lcd_cmd(0x01); lcd_cmd(0xc3); lcd_string("Blub OFF"); }
+  98   2        if(strcmp(buff,"mON")==0) { motor =1; lcd_cmd(0x01); lcd_cmd(0xc3); lcd_string("Motor ON");}
+  99   2        if(strcmp(buff,"mOF")==0) { motor =0; lcd_cmd(0x01); lcd_cmd(0xc3); lcd_string("Motor OFF");}
+ 100   2        if(strcmp(buff,"fON")==0) { fan =1; lcd_cmd(0x01); lcd_cmd(0xc3); lcd_string("Fan ON");}
+ 101   2        if(strcmp(buff,"fOF")==0) { fan =0; lcd_cmd(0x01); lcd_cmd(0xc3); lcd_string("Fan OFF");}
+ 102   2        
+ 103   2        delay(500);
+ 104   2       }
+ 105   1      }
+ 106          void send_byte(unsigned char ch)
+ 107          {
+ 108   1         
+ 109   1         SBUF = ch;
+ 110   1         while(!TI);
+ 111   1         TI = 0;
+ 112   1       
+ 113   1      }
+ 114          unsigned char recv_byte()
+ 115          {
+ 116   1         unsigned char c;
+ 117   1         while(!RI);                 
+C51 COMPILER V9.54   GSMOK                                                                 03/15/2017 19:08:53 PAGE 3   
+
+ 118   1         c = SBUF;
+ 119   1         RI = 0;
+ 120   1         return(c);
+ 121   1      }
+ 122          void string_hypr(unsigned char *str)
+ 123          {
+ 124   1         while(*str != '\0')
+ 125   1         {
+ 126   2            send_byte(*str);
+ 127   2          str++;
+ 128   2         }
+ 129   1      }
+ 130          void enter()
+ 131          {
+ 132   1         send_byte(0x0d);
+ 133   1         send_byte(0x0a);
+ 134   1      }
+ 135          
+ 136          void signal()
+ 137          {
+ 138   1        led=1;
+ 139   1        delay(20);
+ 140   1        led=0;
+ 141   1        delay(20);
+ 142   1        led=1;
+ 143   1        delay(20);
+ 144   1        led=0;
+ 145   1        delay(20);
+ 146   1        led=1;
+ 147   1        delay(20);
+ 148   1        led=0;
+ 149   1        delay(20);
+ 150   1      }
+ 151          
+ 152          void lcd_cmd(unsigned char x1)
+ 153          {
+ 154   1       P1=x1;
+ 155   1       rs=0;
+ 156   1       en=1;
+ 157   1       en=0;
+ 158   1       delay(1);
+ 159   1      }
+ 160          void lcd_data(unsigned char x2)
+ 161          {
+ 162   1       P1=x2;
+ 163   1       rs=1;
+ 164   1       en=1;
+ 165   1       en=0;
+ 166   1       delay(1);
+ 167   1      }
+ 168          void lcd_string(unsigned char *str)
+ 169          {
+ 170   1        int i,j,k;
+ 171   1        j=strlen(str);
+ 172   1        lcd_cmd(0x80);
+ 173   1        delay(10);
+ 174   1        lcd_cmd(0x01);
+ 175   1        delay(10);
+ 176   1        if(strlen(str)<16)
+ 177   1        {
+ 178   2          for(i=0;str[i]!='\0';i++)
+ 179   2          {
+C51 COMPILER V9.54   GSMOK                                                                 03/15/2017 19:08:53 PAGE 4   
+
+ 180   3            lcd_data(str[i]);
+ 181   3            delay(1);
+ 182   3          }
+ 183   2        }
+ 184   1        else
+ 185   1        {
+ 186   2          for(i=0;i<16;i++)
+ 187   2          {
+ 188   3            lcd_data(str[i]);
+ 189   3            delay(1);
+ 190   3          }
+ 191   2          for(i=1,j=16;str[j]!='\0';i++,j++)
+ 192   2          {
+ 193   3           lcd_cmd(0x80);
+ 194   3           lcd_cmd(0x01);
+ 195   3           for(k=i;k<=j;k++)
+ 196   3           {
+ 197   4            lcd_data(str[k]);
+ 198   4            delay(1);
+ 199   4           }
+ 200   3           delay(10);
+ 201   3          }
+ 202   2        }
+ 203   1      }
+ 204          void delay(unsigned int time)
+ 205          { 
+ 206   1       int x,y;
+ 207   1       for(x=0;x<time;x++)
+ 208   1       for(y=0;y<1275;y++);
+ 209   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   1001    ----
+   CONSTANT SIZE    =    180    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     49       9
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
